@@ -24,7 +24,7 @@ indicators (Long-term and Modern specifications).
 
 ## Pipeline Steps
 
-| # | Script | Description | Input | Output |
+|   | Script | Description | Input | Output |
 |---|--------|-------------|-------|--------|
 | 1 | `01_extract_windows.py` | Extract a fixed-size token window around each occurrence of "people" (one row per occurrence). | corpus CSV (`text`, `year`, `president`) | `windows.csv` |
 | 2 | `02_build_dictionary.py` | Build the probe-word dictionary (seed → expand → filter → disambiguate) and its cosine validation matrix. | corpus CSV | `dictionary.json`, `noun_counts.csv`, `cosine_matrix.csv` |
@@ -32,7 +32,7 @@ indicators (Long-term and Modern specifications).
 | 4 | `04_compute_frame_scores.py` | Score every window with its era-specific model and compute baseline-corrected frame scores. | `windows.csv`, `dictionary.json`, `noun_counts.csv`, `./era_models` | `scores.csv` |
 | 5 | `05_regression.py` | Merge macro indicators and estimate Long/Modern OLS (instance-level clustered by year + year-level robustness). | `scores.csv`, V-Dem CSV, macro CSV | regression tables |
 
-## Example run
+## Usage
 
 ### 1. Contextual windows around every "people"
 
@@ -60,14 +60,10 @@ indicators (Long-term and Modern specifications).
         --vdem V-Dem-CD-v15.csv --macro macro_indicators.csv \
         --top-n 3 --out-prefix regression
 
-## Notes
+### Notes
 
 - **Era boundaries** are defined identically in `03` and `04`
   (`ERA_BOUNDARIES`). Edit both if you change the periodization.
-- **Frame score** is the baseline-corrected `top{N}_{c}_rel_pll`: mean top-N
-  category PLL minus mean top-N random-noun-baseline PLL.
-- The random baseline is sampled once with a fixed seed (`--seed 42`) from the
-  most frequent corpus nouns not present in any dictionary.
 - Requires a GPU for steps 3 and 4 in practice.
 - Each script has a detailed module docstring; run `python <script> --help` for
   all arguments.
