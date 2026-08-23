@@ -45,27 +45,31 @@ indicators (Long-term and Modern specifications).
 
 ## Example run
 
-​```bash
-# 1. contextual windows around every "people"
-python 01_extract_windows.py --input speech_us.csv --output windows.csv --window-size 50
+### 1. Contextual windows around every "people"
 
-# 2. curated probe-word dictionary (seed -> expand -> filter -> disambiguate)
-python 02_build_dictionary.py --input speech_us.csv \
-    --out-dict dictionary.json --out-nouns noun_counts.csv --out-cosine cosine_matrix.csv \
-    --top-k 20 --min-freq 20
+    python 01_extract_windows.py --input speech_us.csv --output windows.csv --window-size 50
 
-# 3. fine-tune one MLM per historical era
-python 03_finetune_era_models.py --windows windows.csv --output-dir ./era_models --epochs 3
+### 2. Curated probe-word dictionary (seed -> expand -> filter -> disambiguate)
 
-# 4. baseline-corrected frame scores with era-specific models
-python 04_compute_frame_scores.py --windows windows.csv \
-    --dict dictionary.json --nouns noun_counts.csv --era-models ./era_models \
-    --output scores.csv --top-n 3
+    python 02_build_dictionary.py --input speech_us.csv \
+        --out-dict dictionary.json --out-nouns noun_counts.csv --out-cosine cosine_matrix.csv \
+        --top-k 20 --min-freq 20
 
-# 5. Long/Modern OLS (instance-level clustered by year + year-level robustness)
-python 05_regression.py --scores scores.csv \
-    --vdem V-Dem-CD-v15.csv --macro macro_indicators.csv \
-    --top-n 3 --out-prefix regression
+### 3. Fine-tune one MLM per historical era
+
+    python 03_finetune_era_models.py --windows windows.csv --output-dir ./era_models --epochs 3
+
+### 4. Baseline-corrected frame scores with era-specific models
+
+    python 04_compute_frame_scores.py --windows windows.csv \
+        --dict dictionary.json --nouns noun_counts.csv --era-models ./era_models \
+        --output scores.csv --top-n 3
+
+### 5. Long/Modern OLS (instance-level clustered by year + year-level robustness)
+
+    python 05_regression.py --scores scores.csv \
+        --vdem V-Dem-CD-v15.csv --macro macro_indicators.csv \
+        --top-n 3 --out-prefix regression
 ​```
 
 ## Notes
