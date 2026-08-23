@@ -2,7 +2,7 @@
 
 What do political elites mean when they invoke "the people", and how has this meaning shifted across centuries of democratic history? Political theorists have long held that "the people" is a discursively constructed and contested category. Yet empirical work remains largely qualitative or small in scale, and computational approaches have yet to address how contested concepts themselves are framed over time. We address this gap with a generalizable framework that models contested concepts as configurations of theoretically grounded frames, and apply it to American presidential rhetoric using three: Nation, Civic, and Global. Using a fine-tuned political masked language model, we mask each occurrence of "people" and score each frame by the pseudo-log-likelihood of its probe words. We apply the framework to 3,402 U.S. presidential speeches from 1789 to 2025. The resulting measurements agree with expert human coding at a level comparable to inter-annotator agreement, while tracking major junctures such as the Civil War, the World Wars, the Civil Rights era, and a recent nationalist turn. They also covary with external indicators as expected: higher democracy is associated with less national and global framing and more civic framing. Beyond "the people", the framework may generalize to other contested political concepts.
 
-# Overview
+# Data Pipeline & Overview
 
 **Data.** A corpus of U.S. presidential speeches (Miller Center + American
 Presidency Project), one row per speech with the speech text, year, and
