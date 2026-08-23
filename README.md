@@ -22,7 +22,7 @@ random-noun baseline, giving a **baseline-corrected frame score**. Instance-
 level scores are aggregated and regressed on macro-level political and economic
 indicators (Long-term and Modern specifications).
 
-## Steps
+## Data, Model, and Method
 
 | # | Script | Description | Input | Output |
 |---|--------|-------------|-------|--------|
