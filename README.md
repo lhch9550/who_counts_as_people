@@ -12,11 +12,11 @@ speech with the speech text, year, and speaker. Each occurrence of the token
 instance-level unit of analysis.
 
 **Model.** [RooseBERT](https://huggingface.co/ddore14/RooseBERT-scr-cased)
-([paper](https://huggingface.co/papers/2508.03250)), a BERT-based masked
-language model pre-trained on political debate and speech. Because the meaning
-of "the people" shifts over time, a separate copy is fine-tuned on each
-historical era's windows, and every instance is scored with its own
-era-specific model.
+([HuggingFace paper page](https://huggingface.co/papers/2508.03250)), a
+BERT-based masked language model pre-trained on political debate and speech.
+Because the meaning of "the people" shifts over time, a separate copy is
+fine-tuned on each historical era's windows, and every instance is scored with
+its own era-specific model.
 
 **Method.** For each windowed occurrence, the target token is replaced with
 `[MASK]`. For each frame we take the mean pseudo-log-likelihood (PLL) of its
