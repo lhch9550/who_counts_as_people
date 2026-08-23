@@ -41,15 +41,26 @@ indicators (Long-term and Modern specifications).
 
     python 01_extract_windows.py --input speech_us.csv --output windows.csv --window-size 50
 
+`--input` speech corpus CSV, `--output` where the windows are written,
+`--window-size` tokens kept on each side of each "people" occurrence.
+
 ### 2. Curated probe-word dictionary (seed -> expand -> filter -> disambiguate)
 
     python 02_build_dictionary.py --input speech_us.csv \
         --out-dict dictionary.json --out-nouns noun_counts.csv --out-cosine cosine_matrix.csv \
         --top-k 20 --min-freq 20
 
+`--top-k` nearest vocabulary tokens retrieved per frame before filtering,
+`--min-freq` minimum corpus frequency for a word to stay in the dictionary.
+Outputs the per-frame dictionary, corpus noun counts, and the cosine matrix.
+
 ### 3. Fine-tune one MLM per historical era
 
     python 03_finetune_era_models.py --windows windows.csv --output-dir ./era_models --epochs 3
+
+`--windows` the windows from step 1, `--output-dir` where one model per era is
+saved, `--epochs` fine-tuning epochs per era. Era boundaries are set by
+`ERA_BOUNDARIES` inside the script (must match step 4).
 
 ### 4. Baseline-corrected frame scores with era-specific models
 
@@ -57,19 +68,19 @@ indicators (Long-term and Modern specifications).
         --dict dictionary.json --nouns noun_counts.csv --era-models ./era_models \
         --output scores.csv --top-n 3
 
+`--dict` / `--nouns` the dictionary and noun counts from step 2, `--era-models`
+the models from step 3, `--top-n` probe words averaged per frame. Requires a GPU
+in practice.
+
 ### 5. Long/Modern OLS (instance-level clustered by year + year-level robustness)
 
     python 05_regression.py --scores scores.csv \
         --vdem V-Dem-CD-v15.csv --macro macro_indicators.csv \
         --top-n 3 --out-prefix regression
 
-### Notes
-
-- **Era boundaries** are defined identically in `03` and `04`
-  (`ERA_BOUNDARIES`). Edit both if you change the periodization.
-- Requires a GPU for steps 3 and 4 in practice.
-- Each script has a detailed module docstring; run `python <script> --help` for
-  all arguments.
+`--scores` the frame scores from step 4, `--vdem` V-Dem indicators, `--macro`
+macro-economic indicators, `--out-prefix` prefix for the output tables.
+`--top-n` must match the value used in step 4.
 
 ## License
 
