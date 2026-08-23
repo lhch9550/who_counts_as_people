@@ -28,7 +28,7 @@ scripts read it back with ast.literal_eval.
 Example
 -------
     python 01_extract_windows.py \
-        --input emnlp_us.csv \
+        --input speech_us.csv \
         --output windows.csv \
         --window-size 50
 """
