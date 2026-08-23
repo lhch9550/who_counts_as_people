@@ -97,8 +97,4 @@ indicators (Long-term and Modern specifications).
 
 The code in this repository is released under the MIT License (see LICENSE).
 
-Note that external models and datasets are not covered by this license and
-remain subject to their own terms — including RooseBERT (distributed for
-non-commercial academic research) and the external indicators used in the
-regression step (e.g., V-Dem, WDI). Please consult and comply with each
-resource's original license before use.
+Please kindly note that external models and datasets are not covered by this license and remain subject to their own terms — including RooseBERT (distributed for non-commercial academic research) and the external indicators used in the regression step (e.g., V-Dem, WDI). Please consult and comply with each resource's original license before use.
