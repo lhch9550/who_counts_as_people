@@ -4,16 +4,19 @@ What do political elites mean when they invoke "the people", and how has this me
 
 ## Data, Model, and Method
 
-**Data.** A corpus of U.S. presidential speeches (Miller Center + American
-Presidency Project), one row per speech with the speech text, year, and
-speaker. Each occurrence of the token *people* is turned into a fixed-size
-contextual window, yielding the instance-level unit of analysis.
+**Data.** A corpus of U.S. presidential speeches
+([Miller Center](https://data.millercenter.org/api.html) +
+[American Presidency Project](https://www.presidency.ucsb.edu/)), one row per
+speech with the speech text, year, and speaker. Each occurrence of the token
+*people* is turned into a fixed-size contextual window, yielding the
+instance-level unit of analysis.
 
-**Model.** [RooseBERT](https://huggingface.co/ddore14/RooseBERT-scr-cased), a
-BERT-based masked language model pre-trained on political debate and speech.
-Because the meaning of "the people" shifts over time, a separate copy is
-fine-tuned on each historical era's windows, and every instance is scored with
-its own era-specific model.
+**Model.** [RooseBERT](https://huggingface.co/ddore14/RooseBERT-scr-cased)
+([paper](https://huggingface.co/papers/2508.03250)), a BERT-based masked
+language model pre-trained on political debate and speech. Because the meaning
+of "the people" shifts over time, a separate copy is fine-tuned on each
+historical era's windows, and every instance is scored with its own
+era-specific model.
 
 **Method.** For each windowed occurrence, the target token is replaced with
 `[MASK]`. For each frame we take the mean pseudo-log-likelihood (PLL) of its
