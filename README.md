@@ -29,11 +29,11 @@ indicators (Long-term and Modern specifications).
 
 |   | Script | Description | Input | Output |
 |---|--------|-------------|-------|--------|
-| 1 | `01_extract_windows.py` | Extract a fixed-size token window around each occurrence of "people" (one row per occurrence). | corpus CSV (`text`, `year`, `president`) | `windows.csv` |
-| 2 | `02_build_dictionary.py` | Build the probe-word dictionary (seed → expand → filter → disambiguate) and its cosine validation matrix. | corpus CSV | `dictionary.json`, `noun_counts.csv`, `cosine_matrix.csv` |
-| 3 | `03_finetune_era_models.py` | Fine-tune a separate MLM per historical era on that era's windows. | `windows.csv` | `./era_models/<era>/` |
-| 4 | `04_compute_frame_scores.py` | Score every window with its era-specific model and compute baseline-corrected frame scores. | `windows.csv`, `dictionary.json`, `noun_counts.csv`, `./era_models` | `scores.csv` |
-| 5 | `05_regression.py` | Merge macro indicators and estimate Long/Modern OLS (instance-level clustered by year + year-level robustness). | `scores.csv`, V-Dem CSV, macro CSV | regression tables |
+| 1 | `01_extract_windows.py` | Extract a fixed-size token window around each occurrence of "people" (one row per occurrence). | Speech corpus (text, year, speaker) | One row per occurrence, with its token window and position |
+| 2 | `02_build_dictionary.py` | Build the probe-word dictionary (seed → expand → filter → disambiguate) and its cosine validation matrix. | Speech corpus | Probe-word dictionary per frame, corpus noun frequencies, and a category cosine-similarity matrix |
+| 3 | `03_finetune_era_models.py` | Fine-tune a separate MLM per historical era on that era's windows. | Contextual windows | One fine-tuned masked language model per historical era |
+| 4 | `04_compute_frame_scores.py` | Score every window with its era-specific model and compute baseline-corrected frame scores. | Contextual windows, probe-word dictionary, noun frequencies, era-specific models | Instance-level baseline-corrected frame scores (Nation / Civic / Global) |
+| 5 | `05_regression.py` | Merge macro indicators and estimate Long/Modern OLS (instance-level clustered by year + year-level robustness). | Frame scores, plus V-Dem and macro-economic indicators | Long/Modern OLS regression tables |
 
 ## Usage
 
