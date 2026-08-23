@@ -37,8 +37,6 @@ indicators (Long-term and Modern specifications).
 
 ## Usage
 
-## Usage
-
 ### 1. Contextual windows around every "people"
 
     python 01_extract_windows.py --input speech_us.csv --output windows.csv --window-size 50
