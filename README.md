@@ -70,7 +70,6 @@ indicators (Long-term and Modern specifications).
     python 05_regression.py --scores scores.csv \
         --vdem V-Dem-CD-v15.csv --macro macro_indicators.csv \
         --top-n 3 --out-prefix regression
-​```
 
 ## Notes
 
