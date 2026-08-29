@@ -92,9 +92,3 @@ indicators (Long-term and Modern specifications).
 - `--macro` — macro-economic indicators
 - `--out-prefix` — prefix for the output tables
 - `--top-n` — must match the value used in step 4
-
-## License
-
-The code in this repository is released under the MIT License (see LICENSE).
-
-Please kindly note that external models and datasets are not covered by this license and remain subject to their own terms — including RooseBERT (distributed for non-commercial academic research) and the external indicators used in the regression step (e.g., V-Dem, WDI). Please consult and comply with each resource's original license before use.
